@@ -1,0 +1,25 @@
+---------------------------------------------------------------------------------
+Nome           Escopo  Tipo ID  Tipo Retorno  Tipo Param  Mem. Loc.  Num da linha
+-------------  ------  -------  ------------  ----------  ---------  ------------
+low            sort    pvar     INT           null           2        21;  23; 
+low            minloc  pvar     INT           null           2         6;   8;   9;  10; 
+main           global  fun      VOID          VOID           -        34; 
+sort           main    call     VOID          null           -        42; 
+sort           global  fun      VOID          INT            -        21; 
+input          main    call     INT           null           -        39; 
+vet            global  vet      INT           null           361       4;  39;  42;  45; 
+minloc         sort    call     INT           null           -        26; 
+minloc         global  fun      INT           INT            -         6; 
+a              sort    pvet     INT           null           1        21;  26;  27;  28;  28;  29; 
+a              minloc  pvet     INT           null           1         6;   9;  12;  13; 
+return         minloc  ret      INT           null           -        18; 
+i              main    var      INT           null           1        36;  37;  38;  39;  40;  40;  43;  44;  45;  46;  46; 
+i              sort    var      INT           null           4        22;  23;  24;  26;  28;  29;  30;  30; 
+i              minloc  var      INT           null           4         7;  10;  11;  12;  13;  14;  16;  16; 
+k              sort    var      INT           null           5        22;  26;  27;  28; 
+k              minloc  var      INT           null           6         7;   8;  14;  18; 
+t              sort    var      INT           null           6        25;  27;  29; 
+output         main    call     null          null           -        45; 
+x              minloc  var      INT           null           5         7;   9;  12;  13; 
+high           sort    pvar     INT           null           3        21;  24;  26; 
+high           minloc  pvar     INT           null           3         6;  11; 
