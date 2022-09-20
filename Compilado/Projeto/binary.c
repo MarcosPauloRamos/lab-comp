@@ -17,75 +17,107 @@ const char *opcodeBins[] =   {"000000", "000000", "000000", "000000", "000000", 
 
 const char *functBins[] = { "000000", "000001", "000010", "000011", "000100", "000101", "000110", "000111", "001000", "001001", "001010" };
 
+int vetor[26];
+void vetor_atua(int tamanho, int valor){
+  int i, j;
+  int aux = valor;
+  for(i = 0; i < 26; i++) vetor[i] = 0;
+  for(j = 0; j < tamanho, j++){
+    vet[25-j] = aux%2;
+    aux = aux/2;
+  }
+}
+
 void assembly_binary(AssemblyCode codeLine){
+    int i;
     Instruction inst;
     if(codeLine->kind == instr){
         inst = codeLine->line.instruction;
         switch(inst.format){
         case formatR:
-            fprintf(listing,"ram[%d] = {6'b%s, 5'd%d, 5'd%d, 5'd%d, 5'd0, 6'b%s};",codeLine->lineno,
-                                                             opcodeBins[inst.opcode],
-                                                             inst.reg2,
-                                                             inst.reg3,
-                                                             inst.reg1,
-                                                             functBins[inst.opcode]);
+            fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+            void vetor_atua(5, inst.reg2);
+            for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+            void vetor_atua(5, inst.reg3);
+            for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+            void vetor_atua(5, inst.reg1);
+            for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+            void vetor_atua(5, 0);
+            for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+            fprintf(listing,"%s;",functBins[inst.opcode]);
             fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             break;
         case formatJ:
             if(inst.opcode == jst){
-                fprintf(listing,"ram[%d] = {6'b%s, 26'd0};",codeLine->lineno,
-                                                           opcodeBins[inst.opcode]);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+                void vetor_atua(26, 0);
+                for(i = 0; i < 26; i++) fprintf(listing,"%d;",vet[25-i]);
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }else{
-                fprintf(listing,"ram[%d] = {6'b%s, 26'd%d};",codeLine->lineno,
-                                                           opcodeBins[inst.opcode],
-                                                           inst.imed);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+                void vetor_atua(26, inst.imed);
+                for(i = 0; i < 26; i++) fprintf(listing,"%d;",vet[25-i]);
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }
             break;
         case formatI:
             if(inst.opcode == sti || inst.opcode == ldi){
-                fprintf(listing,"ram[%d] = {6'b%s, 5'd0, 5'd%d, 16'd%d};",codeLine->lineno,
-                                                           opcodeBins[inst.opcode],
-                                                           inst.reg1,
-                                                           inst.imed);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+                void vetor_atua(5, 0);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(5, inst.reg1);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(16, inst.imed);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }else if(inst.opcode == bgt || inst.opcode == blt){
-                fprintf(listing,"ram[%d] = {6'b%s, 5'd%d, 5'd%d, 16'd%d};",codeLine->lineno,
-                                                           opcodeBins[inst.opcode],
-                                                           inst.reg1,
-                                                           inst.reg2,
-                                                           inst.imed);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+                void vetor_atua(5, inst.reg1);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(5, inst.reg2);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(16, inst.imed);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);             
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }else if(inst.opcode == mov || inst.opcode == put){
-                fprintf(listing,"ram[%d] = {6'b%s, 5'd%d, 5'd%d, 16'd%d};",codeLine->lineno,
-                                                           opcodeBins[addi],
-                                                           inst.reg2,
-                                                           inst.reg1,
-                                                           inst.imed);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[addi]);
+                void vetor_atua(5, inst.reg2);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(5, inst.reg1);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(16, inst.imed);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);   
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }else{
-                fprintf(listing,"ram[%d] = {6'b%s, 5'd%d, 5'd%d, 16'd%d};",codeLine->lineno,
-                                                           opcodeBins[inst.opcode],
-                                                           inst.reg2,
-                                                           inst.reg1,
-                                                           inst.imed);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+                void vetor_atua(5, inst.reg2);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(5, inst.reg1);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(16, inst.imed);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);  
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }
             break;
         case formatSYS:
             if(inst.opcode == halt || inst.opcode == sleep || inst.opcode == wake){
-                fprintf(listing,"ram[%d] = {6'b%s, 26'd0};",codeLine->lineno,
-                                                           opcodeBins[inst.opcode]);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+                void vetor_atua(26, 0);
+                for(i = 0; i < 26; i++) fprintf(listing,"%d;",vet[25-i]);
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }else if(inst.opcode == ctso){
-                fprintf(listing,"ram[%d] = {6'b%s, 26'd%d};",codeLine->lineno,
-                                                           opcodeBins[jal],END_SWITCH);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+                void vetor_atua(26, END_SWITCH);
+                for(i = 0; i < 26; i++) fprintf(listing,"%d;",vet[25-i]);
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }else{
-                fprintf(listing,"ram[%d] = {6'b%s, 5'd0, 5'd%d, 16'd0};",codeLine->lineno,
-                                                           opcodeBins[inst.opcode],
-                                                           inst.reg2);
+                fprintf(listing,"ram[%d] = %s",codeLine->lineno, opcodeBins[inst.opcode]);
+                void vetor_atua(5, 0);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(5, inst.reg2);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]);
+                void vetor_atua(16, 0);
+                for(i = 0; i < 5; i++) fprintf(listing,"%d",vet[25-i]); 
                 fprintf(listing,"   // %s\n",Prefixos[inst.opcode]);
             }
             break;
